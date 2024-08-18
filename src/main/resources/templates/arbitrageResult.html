@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Результат арбитража</title>
+</head>
+<body>
+
+<h2>Результат арбитража</h2>
+<div>
+    <p><strong>Имя пользователя:</strong> <span th:text="${arbitrageData.username}"></span></p>
+    <p><strong>Имя пользователя 2:</strong> <span th:text="${arbitrageData.username2}"></span></p>
+    <p><strong>Название криптовалюты:</strong> <span th:text="${arbitrageData.cryptoName}"></span></p>
+    <p><strong>Количество:</strong> <span th:text="${arbitrageData.amount}"></span></p>
+</div>
+
+<h2>Информация о выбранных биржах</h2>
+
+<div th:if="${selectedApi1}">
+    <h3>Биржа 1</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название биржи</th>
+            <th>Имя пользователя</th>
+            <th>API ключ</th>
+            <th>Секретный API</th>
+            <th>Дополнительная информация</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="info : ${selectedApi1}">
+            <td th:text="${info.id}"></td>
+            <td th:text="${info.exchangeName}"></td>
+            <td th:text="${info.username}"></td>
+            <td th:text="${info.apikey}"></td>
+            <td th:text="${info.secretapi}"></td>
+            <td th:text="${info.extraInfo}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:if="${selectedApi2}">
+    <h3>Биржа 2</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название биржи</th>
+            <th>Имя пользователя</th>
+            <th>API ключ</th>
+            <th>Секретный API</th>
+            <th>Дополнительная информация</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="info : ${selectedApi2}">
+            <td th:text="${info.id}"></td>
+            <td th:text="${info.exchangeName}"></td>
+            <td th:text="${info.username}"></td>
+            <td th:text="${info.apikey}"></td>
+            <td th:text="${info.secretapi}"></td>
+            <td th:text="${info.extraInfo}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Выбор элементов для отображения</h2>
+<form action="#" th:action="@{/your-submit-endpoint}" method="post">
+    <label for="listASelection">Выберите элемент из списка A:</label>
+    <select id="listASelection" name="selectedA">
+        <option th:each="item : ${listA}" th:value="${item.chain}" th:text="${item.chain}"></option>
+    </select>
+
+    <label for="listBSelection">Выберите элемент из списка B:</label>
+    <select id="listBSelection" name="selectedB">
+        <option th:each="item : ${listB}" th:value="${item.chain}" th:text="${item.chain}"></option>
+    </select>
+
+    <button type="submit">Отправить</button>
+</form>
+
+<h2>Список A</h2>
+<div th:if="${listA}">
+    <table>
+        <thead>
+        <tr>
+            <th>Chain</th>
+            <th>Chain Name</th>
+            <th>Withdraw Fee</th>
+            <th>Withdraw Min</th>
+            <th>Min Accuracy</th>
+            <th>Withdraw Enabled</th>
+            <th>Deposit Enabled</th>
+            <th>Chain Name 2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${listA}">
+            <td th:text="${item.chain}"></td>
+            <td th:text="${item.chaiName}"></td>
+            <td th:text="${item.withdrawFee}"></td>
+            <td th:text="${item.withdrawMin}"></td>
+            <td th:text="${item.minAccuracy}"></td>
+            <td th:text="${item.getisWithdrawEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.getisDepositEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.chaiName2}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Список B</h2>
+<div th:if="${listB}">
+    <table>
+        <thead>
+        <tr>
+            <th>Chain</th>
+            <th>Chain Name</th>
+            <th>Withdraw Fee</th>
+            <th>Withdraw Min</th>
+            <th>Min Accuracy</th>
+            <th>Withdraw Enabled</th>
+            <th>Deposit Enabled</th>
+            <th>Chain Name 2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${listB}">
+            <td th:text="${item.chain}"></td>
+            <td th:text="${item.chaiName}"></td>
+            <td th:text="${item.withdrawFee}"></td>
+            <td th:text="${item.withdrawMin}"></td>
+            <td th:text="${item.minAccuracy}"></td>
+            <td th:text="${item.getisWithdrawEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.getisDepositEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.chaiName2}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<h2>Выбор элементов для отображения 2</h2>
+<form action="#" th:action="@{/your-submit-endpoint}" method="post">
+    <label for="listCSelection">Выберите элемент из списка C:</label>
+    <select id="listCSelection" name="selectedA">
+        <option th:each="item : ${listC}" th:value="${item.chain}" th:text="${item.chain}"></option>
+    </select>
+
+    <label for="listDSelection">Выберите элемент из списка D:</label>
+    <select id="listDSelection" name="selectedB">
+        <option th:each="item : ${listD}" th:value="${item.chain}" th:text="${item.chain}"></option>
+    </select>
+
+    <label for="listFSelection">Выберите элемент из списка F:</label>
+    <select id="listFSelection" name="selectedA">
+        <option th:each="item : ${listF}" th:value="${item.chain}" th:text="${item.chain}"></option>
+    </select>
+
+    <label for="listESelection">Выберите элемент из списка E:</label>
+    <select id="listESelection" name="selectedB">
+        <option th:each="item : ${listE}" th:value="${item.chain}" th:text="${item.chain}"></option>
+    </select>
+
+    <button type="submit">Отправить</button>
+</form>
+
+<h2>Список C</h2>
+<div th:if="${listC}">
+    <table>
+        <thead>
+        <tr>
+            <th>Chain</th>
+            <th>Chain Name</th>
+            <th>Withdraw Fee</th>
+            <th>Withdraw Min</th>
+            <th>Min Accuracy</th>
+            <th>Withdraw Enabled</th>
+            <th>Deposit Enabled</th>
+            <th>Chain Name 2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${listC}">
+            <td th:text="${item.chain}"></td>
+            <td th:text="${item.chaiName}"></td>
+            <td th:text="${item.withdrawFee}"></td>
+            <td th:text="${item.withdrawMin}"></td>
+            <td th:text="${item.minAccuracy}"></td>
+            <td th:text="${item.getisWithdrawEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.getisDepositEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.chaiName2}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Список D</h2>
+<div th:if="${listD}">
+    <table>
+        <thead>
+        <tr>
+            <th>Chain</th>
+            <th>Chain Name</th>
+            <th>Withdraw Fee</th>
+            <th>Withdraw Min</th>
+            <th>Min Accuracy</th>
+            <th>Withdraw Enabled</th>
+            <th>Deposit Enabled</th>
+            <th>Chain Name 2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${listD}">
+            <td th:text="${item.chain}"></td>
+            <td th:text="${item.chaiName}"></td>
+            <td th:text="${item.withdrawFee}"></td>
+            <td th:text="${item.withdrawMin}"></td>
+            <td th:text="${item.minAccuracy}"></td>
+            <td th:text="${item.getisWithdrawEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.getisDepositEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.chaiName2}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Список F</h2>
+<div th:if="${listF}">
+    <table>
+        <thead>
+        <tr>
+            <th>Chain</th>
+            <th>Chain Name</th>
+            <th>Withdraw Fee</th>
+            <th>Withdraw Min</th>
+            <th>Min Accuracy</th>
+            <th>Withdraw Enabled</th>
+            <th>Deposit Enabled</th>
+            <th>Chain Name 2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${listF}">
+            <td th:text="${item.chain}"></td>
+            <td th:text="${item.chaiName}"></td>
+            <td th:text="${item.withdrawFee}"></td>
+            <td th:text="${item.withdrawMin}"></td>
+            <td th:text="${item.minAccuracy}"></td>
+            <td th:text="${item.getisWithdrawEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.getisDepositEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.chaiName2}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Список E</h2>
+<div th:if="${listE}">
+    <table>
+        <thead>
+        <tr>
+            <th>Chain</th>
+            <th>Chain Name</th>
+            <th>Withdraw Fee</th>
+            <th>Withdraw Min</th>
+            <th>Min Accuracy</th>
+            <th>Withdraw Enabled</th>
+            <th>Deposit Enabled</th>
+            <th>Chain Name 2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${listE}">
+            <td th:text="${item.chain}"></td>
+            <td th:text="${item.chaiName}"></td>
+            <td th:text="${item.withdrawFee}"></td>
+            <td th:text="${item.withdrawMin}"></td>
+            <td th:text="${item.minAccuracy}"></td>
+            <td th:text="${item.getisWithdrawEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.getisDepositEnabled()} ? 'Да' : 'Нет'"></td>
+            <td th:text="${item.chaiName2}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<button><a th:href="@{/exchange/list}">Назад к списку информации о биржах</a></button>
+
+</body>
+</html>

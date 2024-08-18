@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Exchange Info</title>
+</head>
+<body>
+
+<h1>Edit Exchange Info</h1>
+<form th:action="@{/exchange/edit}" method="POST" th:object="${exchangeInfo}">
+    <table>
+        <tr>
+            <td>ID:</td>
+            <td><input type="hidden" th:field="*{id}"/></td>
+        </tr>
+        <tr>
+            <td>Exchange Name:</td>
+            <td><input type="text" th:field="*{exchangeName}" required/></td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" th:field="*{username}" required/></td>
+        </tr>
+        <tr>
+            <td>API Key:</td>
+            <td><input type="text" th:field="*{apikey}" required/></td>
+        </tr>
+        <tr>
+            <td>Secret API:</td>
+            <td><input type="text" th:field="*{secretapi}" required/></td>
+        </tr>
+        <tr>
+            <td>Extra Info:</td>
+            <td><input type="text" th:field="*{extraInfo}"/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Update Exchange Info"/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

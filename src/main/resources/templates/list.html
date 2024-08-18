@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exchange Info List</title>
+</head>
+<body>
+
+<h1>Exchange Info List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Exchange Name</th>
+        <th>Username</th>
+        <th>API Key</th>
+        <th>Secret API</th>
+        <th>Extra Info</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="exchangeInfo : ${exchangeInfos}">
+        <td th:text="${exchangeInfo.id}"></td>
+        <td th:text="${exchangeInfo.exchangeName}"></td>
+        <td th:text="${exchangeInfo.username}"></td>
+        <td th:text="${exchangeInfo.apikey}"></td>
+        <td th:text="${exchangeInfo.secretapi}"></td>
+        <td th:text="${exchangeInfo.extraInfo}"></td>
+        <td>
+            <a th:href="@{/exchange/edit(id=${exchangeInfo.id})}">Edit</a>
+            <form th:action="@{'/exchange/delete?id=' + ${exchangeInfo.id}}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Arbitrage</h2>
+<form th:action="@{/exchange/arbitrage}" method="POST">
+    <table>
+        <tr>
+            <td>API Name 1:</td>
+            <td><input type="text" name="apiName1" required/></td>
+        </tr>
+        <tr>
+            <td>API Name 2:</td>
+            <td><input type="text" name="apiName2" required/></td>
+        </tr>
+        <tr>
+            <td>Cryptocurrency:</td>
+            <td><input type="text" name="cryptocurrency" required/></td>
+        </tr>
+        <tr>
+            <td>Transfer Amount:</td>
+            <td><input type="number" step="0.01" name="transferAmount" required/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Start Arbitrage"/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Exchange Info</title>
+</head>
+<body>
+
+<h1>Add New Exchange Info</h1>
+<form th:action="@{/exchange/add}" method="POST" th:object="${exchangeInfo}">
+    <table>
+        <tr>
+            <td>Exchange Name:</td>
+            <td>
+                <select th:field="*{exchangeName}" required>
+                    <option value="">Select Exchange</option>
+                    <option value="Bybit">Bybit</option>
+                    <option value="Kucoin">Kucoin</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" th:field="*{username}" required/></td>
+        </tr>
+        <tr>
+            <td>API Key:</td>
+            <td><input type="text" th:field="*{apikey}" required/></td>
+        </tr>
+        <tr>
+            <td>Secret API:</td>
+            <td><input type="text" th:field="*{secretapi}" required/></td>
+        </tr>
+        <tr>
+            <td>Extra Info:</td>
+            <td><input type="text" th:field="*{extraInfo}"/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Add Exchange Info"/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

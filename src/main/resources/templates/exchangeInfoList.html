@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список биржевой информации</title>
+</head>
+<body>
+
+<button><a th:href="@{/exchange/add}">Создать новую биржевую информацию</a></button>
+
+<h1>Список биржевой информации</h1>
+<table>
+    <tbody>
+    <tr>
+        <th>ID</th>
+        <th>Название биржи</th>
+        <th>Имя пользователя</th>
+        <th>API ключ</th>
+        <th>Секретный API</th>
+        <th>Дополнительная информация</th>
+    </tr>
+    <tr th:each="exchangeInfo : ${exchangeInfos}">
+        <td th:text="${exchangeInfo.id}"></td>
+        <td th:text="${exchangeInfo.exchangeName}"></td>
+        <td th:text="${exchangeInfo.username}"></td>
+        <td th:text="${exchangeInfo.apikey}"></td>
+        <td th:text="${exchangeInfo.secretapi}"></td>
+        <td th:text="${exchangeInfo.extraInfo}"></td>
+        <td>
+            <button><a th:href="@{/exchange/edit(id=${exchangeInfo.id})}">Редактировать</a></button>
+        </td>
+        <td>
+            <form th:action="@{'/exchange/delete?id=' + ${exchangeInfo.id}}" method="post">
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Форма арбитража</h2>
+<form th:action="@{/exchange/arbitrage}" method="post">
+    <div>
+        <label for="username">API 1:</label>
+        <select id="username" name="username" required>
+            <option th:each="exchangeInfo : ${exchangeInfos}" th:value="${exchangeInfo.username}" th:text="${exchangeInfo.exchangeName} + ' (' + ${exchangeInfo.username} + ')'"></option>
+        </select>
+    </div>
+    <div>
+        <label for="username2">API 2:</label>
+        <select id="username2" name="username2" required>
+            <option th:each="exchangeInfo : ${exchangeInfos}" th:value="${exchangeInfo.username}" th:text="${exchangeInfo.exchangeName} + ' (' + ${exchangeInfo.username} + ')'"></option>
+        </select>
+    </div>
+    <div>
+        <label for="cryptoName">Название криптовалюты:</label>
+        <input type="text" id="cryptoName" name="cryptoName" required>
+    </div>
+    <div>
+        <label for="amount">Количество:</label>
+        <input type="number" step="0.0001" id="amount" name="amount" required>
+    </div>
+    <div>
+        <input type="submit" value="Отправить">
+    </div>
+</form>
+
+<div th:if="${error}">
+    <p th:text="${error}" style="color:red;"></p>
+</div>
+
+</body>
+</html>
